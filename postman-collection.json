@@ -1,0 +1,378 @@
+{
+  "info": {
+    "name": "Customer Ticket Classification API",
+    "description": "AI-powered ticket classification system using LangChain and OpenAI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "your-api-key",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "API Documentation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api",
+          "host": ["{{baseUrl}}"],
+          "path": ["api"]
+        }
+      }
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Submit Critical Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"URGENT: Complete system outage - all users affected\",\n  \"description\": \"Our entire platform is down. All customers are getting 500 errors when trying to log in. This started 30 minutes ago and is affecting all users. Revenue is being lost every minute this continues. Need immediate escalation to senior engineering team.\",\n  \"customerInfo\": {\n    \"email\": \"cto@enterprise-client.com\",\n    \"name\": \"John Smith\",\n    \"priority\": \"VIP\"\n  },\n  \"source\": \"email\",\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            }
+          }
+        },
+        {
+          "name": "Submit High Priority Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"Payment processing error on checkout\",\n  \"description\": \"When customers try to complete their purchase, they get an error message saying 'Payment could not be processed'. This is happening for about 20% of transactions since yesterday. Our conversion rate has dropped significantly.\",\n  \"customerInfo\": {\n    \"email\": \"support@retailer.com\",\n    \"name\": \"Sarah Johnson\",\n    \"priority\": \"Standard\"\n  },\n  \"source\": \"web\",\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            }
+          }
+        },
+        {
+          "name": "Submit Medium Priority Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"Dashboard loading slowly\",\n  \"description\": \"The main dashboard is taking 10-15 seconds to load, which is much slower than usual. It used to load in 2-3 seconds. This is affecting my daily workflow.\",\n  \"customerInfo\": {\n    \"email\": \"user@company.com\",\n    \"name\": \"Mike Wilson\",\n    \"priority\": \"Standard\"\n  },\n  \"source\": \"web\",\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            }
+          }
+        },
+        {
+          "name": "Submit Low Priority Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"How to export my data?\",\n  \"description\": \"Hi, I would like to know how I can export all my data from your platform. I need it for my records. Is there a way to do this from the dashboard? Also, what formats are supported?\",\n  \"customerInfo\": {\n    \"email\": \"user@example.com\",\n    \"name\": \"Alex Chen\",\n    \"priority\": \"Standard\"\n  },\n  \"source\": \"web\",\n  \"language\": \"en\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            }
+          }
+        },
+        {
+          "name": "Get Ticket by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/TICKET-123",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets", "TICKET-123"]
+            }
+          }
+        },
+        {
+          "name": "List All Tickets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"]
+            }
+          }
+        },
+        {
+          "name": "Filter Tickets by Priority",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?priority=Critical&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"],
+              "query": [
+                {
+                  "key": "priority",
+                  "value": "Critical"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter Tickets by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets?category=Technical&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Technical"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Submit Feedback",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isCorrect\": false,\n  \"correctedCategory\": \"Billing\",\n  \"correctedPriority\": \"High\",\n  \"agentId\": \"agent-001\",\n  \"comments\": \"This should be classified as a billing issue, not technical\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/TICKET-123/feedback",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets", "TICKET-123", "feedback"]
+            }
+          }
+        },
+        {
+          "name": "Batch Process Tickets",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"subject\": \"Login issue\",\n    \"description\": \"Cannot log into my account, getting invalid credentials error\",\n    \"source\": \"web\"\n  },\n  {\n    \"subject\": \"Billing question\",\n    \"description\": \"I was charged twice for my subscription this month\",\n    \"source\": \"email\"\n  },\n  {\n    \"subject\": \"Feature request\",\n    \"description\": \"Would love to see dark mode support in the app\",\n    \"source\": \"api\"\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tickets/batch",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tickets", "batch"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get Daily Trends",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics/trends?period=day",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics", "trends"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "day"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Hourly Trends",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/analytics/trends?period=hour",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analytics", "trends"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "hour"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin (Requires API Key)",
+      "item": [
+        {
+          "name": "Get Configuration",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/config",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "config"]
+            }
+          }
+        },
+        {
+          "name": "Update Confidence Threshold",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"threshold\": 80\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/config/confidence-threshold",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "config", "confidence-threshold"]
+            }
+          }
+        },
+        {
+          "name": "Clear Memory",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/memory/clear",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "memory", "clear"]
+            }
+          }
+        },
+        {
+          "name": "Health Check (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "{{apiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
